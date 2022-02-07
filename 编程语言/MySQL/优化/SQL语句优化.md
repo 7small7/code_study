@@ -140,3 +140,16 @@ select a.* from `user_1` as a
 inner join a.id = b.id;
 ```
 > 不过前面也提到in的性能，相对join来说低一些。因此，推荐使用join语句查询。
+
+1. 索引的使用。
+
+这里提到的索引使用，并非我们理解上的使用索引查询。而是强制MySQL在查询查询时使用某个指定索引或者忽略某个索引。
+在实际的查询中，该SQL语句中存在多个索引列，MySQL优化器会自动筛选使用哪一个索引，如果MySQL使用的的索引不是我们想使用的索引，就可以指定MySQL使用什么索引。
+```php
+// 使用索引index_column查询
+select * from tableName use index(index_column) where  ?;
+// 查询时忽略某一列索引
+select * from tableName ignore index(index_column) where  ?;
+// 强制使用索引
+select * from tableName force index(index_column) where  ?;
+```
