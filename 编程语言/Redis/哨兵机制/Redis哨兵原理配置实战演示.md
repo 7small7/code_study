@@ -1,15 +1,11 @@
-[TOC]
-
 ## 文章简介
 
 本文将通过理论+实践的方式从头到尾总结Redis中的哨兵机制。文章内容**从主从复制的弊端**、**如何解决弊端**、**什么是哨兵**、**哨兵监控的图形结构**、**哨兵监控的原理**、**如何配置哨兵**、**哨兵与主从复制的关系**等方面来演示。
 
-文中相关资料下载地址:链接: https://pan.baidu.com/s/1cDV9eXuUwuA0QFELDMkIHQ  密码: mv86
+文中相关资料下载地址:[链接:](https://pan.baidu.com/s/1cDV9eXuUwuA0QFELDMkIHQ)  密码: mv86
 
 ## 主从复制弊端
-
-![Snipaste_2021-04-16_15-04-45](https://gitee.com/bruce_qiq/picture/raw/master/2021-4-16/1618556721550-Snipaste_2021-04-16_15-04-45.png)
-
+![1618556721550-Snipaste_2021-04-16_15-04-45](http://qiniucloudtest.qqdeveloper.com/mweb/1618556721550-Snipaste_2021-04-16_15-04-45.png)
 上面的图形结构，大致的可以理解为Redis的主从复制拓扑图。
 
 1. 其中1个主节点负责应用系统的写入数据，另外的4个从节点负责应用系统的读数据。
@@ -31,8 +27,7 @@
 ## 什么是哨兵
 
 可以把Redis的哨兵理解为一种**Redis分布式架构**。 该架构中主要存在两种角色，一种是哨兵，另外一种是数据节点(主从复制节点)。
-![Snipaste_2021-04-16_15-38-08](https://gitee.com/bruce_qiq/picture/raw/master/2021-4-16/1618558716540-Snipaste_2021-04-16_15-38-08.png)
-
+![1618558716540-Snipaste_2021-04-16_15-38-08](http://qiniucloudtest.qqdeveloper.com/mweb/1618558716540-Snipaste_2021-04-16_15-38-08.png)
 哨兵主要负责的任务是：
 
 1. 每一个哨兵都会监控数据节点以及其他的哨兵节点。
@@ -44,12 +39,11 @@
 4. 接着将其他的从节点断开与旧主节点的复制关系，将推举出来的新主节点作为从节点的主节点。
 
 5. 将切换的结果通知给应用系统。
-
-![Snipaste_2021-04-16_15-43-04](https://gitee.com/bruce_qiq/picture/raw/master/2021-4-16/1618558995604-Snipaste_2021-04-16_15-43-04.png)
-
+![1618558995604-Snipaste_2021-04-16_15-43-04](http://qiniucloudtest.qqdeveloper.com/mweb/1618558995604-Snipaste_2021-04-16_15-43-04.png)
 ## 配置哨兵
 
 在演示环境中，配置了三台数据节点(1主2从)，三台哨兵节点。演示中用到的Redis为6.0.8版本。
+
 | 角色 | IP | 端口号 | 
 | :---: | :---: | :---: |
 | (数据节点)master | 127.0.0.1 | 8002 |
@@ -60,6 +54,7 @@
 | 哨兵节点 | 127.0.0.1 | 8007 |
 
 1. (数据节点)master配置。
+
 ```redis
 # 服务配置
 daemonize yes
@@ -94,6 +89,7 @@ stop-writes-on-bgsave-error yes
 rdbcompression yes
 ```
 2. (数据节点)slave配置。
+
 ```redis
 # 服务配置
 daemonize yes
@@ -125,6 +121,7 @@ replicaof 127.0.0.1 8002
 ```
 
 3. 哨兵节点配置。
+
 ```redis
 # 端口号
 port 8006
@@ -178,10 +175,10 @@ kert@kertdeMacBook-Pro-2  ~/config/redis/sentinel  redis-sentinel 8005.con
 ## 演示故障切换
 
 我们先打开三个终端，分配时master节点和两个slave节点。检测是否能够正常进行主从复制。
-
-![Snipaste_2021-04-16_16-01-40](https://gitee.com/bruce_qiq/picture/raw/master/2021-4-16/1618560150817-Snipaste_2021-04-16_16-01-40.png)
+![1618560150817-Snipaste_2021-04-16_16-01-40](http://qiniucloudtest.qqdeveloper.com/mweb/1618560150817-Snipaste_2021-04-16_16-01-40.png)
 我们在主节点任意写入一些数据，然后在从节点进行查询数据。为了方便，后面将master称作1号终端，两个slave分配叫做2号和3号终端。
 1. 我们在1号终端写入数据。
+
 ```shell
 127.0.0.1:8002> set name tony
 OK
@@ -192,6 +189,7 @@ OK
 127.0.0.1:8002>
 ```
 2. 接着在2号和3号终端下面执行如下的查询操作。
+
 ```shell
 127.0.0.1:8003> get name
 "tony"
@@ -204,6 +202,7 @@ OK
 
 我们实现查看一下哨兵节点的一个状态信息。
 1. 查看哨兵端口为8005的节点。
+
 ```shell
 kert@kertdeMacBook-Pro-2  ~  redis-cli -p 8005 info
 # Sentinel
@@ -215,6 +214,7 @@ sentinel_simulate_failure_flags:0
 master0:name=mymaster,status=ok,address=127.0.0.1:8002,slaves=2,sentinels=3
 ```
 2. 查看哨兵端口为8006的节点。
+
 ```shell
 kert@kertdeMacBook-Pro-2  ~  redis-cli -p 8006 info
 # Sentinel
@@ -226,6 +226,7 @@ sentinel_simulate_failure_flags:0
 master0:name=mymaster,status=ok,address=127.0.0.1:8002,slaves=2,sentinels=3
 ```
 3. 查看哨兵端口为8007的节点。
+
 ```shell
 kert@kertdeMacBook-Pro-2  ~  redis-cli -p 8007 info
 # Sentinel
@@ -239,9 +240,7 @@ master0:name=mymaster,status=ok,address=127.0.0.1:8002,slaves=2,sentinels=3
 > 通过上面的几个状态信息，我们可以看到哨兵检测的主节点信息，主节点下面有几个从节点，同时哨兵节点有几个。
 
 我们杀掉master的进程。可以看到1号端口自动断开了连接。
-
-![Snipaste_2021-04-16_16-15-12](https://gitee.com/bruce_qiq/picture/raw/master/2021-4-16/1618560942345-Snipaste_2021-04-16_16-15-12.png)
-
+![1618560942345-Snipaste_2021-04-16_16-15-12](http://qiniucloudtest.qqdeveloper.com/mweb/1618560942345-Snipaste_2021-04-16_16-15-12.png)
 接着我们通过哨兵机制查看一下数据节点状态信息。
 ```shell
 kert@kertdeMacBook-Pro-2  ~  redis-cli -p 8005 info
@@ -257,6 +256,7 @@ master0:name=mymaster,status=ok,address=127.0.0.1:8004,slaves=2,sentinels=3
 
 接下来我们在新的主节点执行操作命令，查看在从节点是否能够完成主从复制。
 1. 在3号端口(新的master)执行一个del命令。
+
 ```shell
 127.0.0.1:8004> del age
 (integer) 1
@@ -265,6 +265,7 @@ master0:name=mymaster,status=ok,address=127.0.0.1:8004,slaves=2,sentinels=3
 2) "socre"
 ```
 2. 在2号端口执行读命令。
+
 ```shell
 127.0.0.1:8003> keys *
 1) "socre"
@@ -272,6 +273,7 @@ master0:name=mymaster,status=ok,address=127.0.0.1:8004,slaves=2,sentinels=3
 ```
 > 此时可以发现我们的主从复制也是正常的。
 3. 启动旧的master，并执行读命令。
+
 ```shell
  kert@kertdeMacBook-Pro-2  ~/config/redis/8002  redis-server ./redis.conf
  kert@kertdeMacBook-Pro-2  ~/config/redis/8002  redis-cli -p 8002
@@ -499,15 +501,11 @@ class OperationRedis
 ```
 
 通过访问该代码，得到如下结果：
-
-![Snipaste_2021-04-17_16-28-59](https://gitee.com/bruce_qiq/picture/raw/master/2021-4-17/1618648165832-Snipaste_2021-04-17_16-28-59.png)
-
+![1618648165832-Snipaste_2021-04-17_16-28-59](http://qiniucloudtest.qqdeveloper.com/mweb/1618648165832-Snipaste_2021-04-17_16-28-59.png)
 > 改代码在实际的生产中，肯定使用时不对的，这里只是为了演示代码如何操作哨兵。
 
 其中的操作逻辑大致如下图：
-![Snipaste_2021-04-17_17-11-46](https://gitee.com/bruce_qiq/picture/raw/master/2021-4-17/1618650744497-Snipaste_2021-04-17_17-11-46.png)
-
-
+![1618650744497-Snipaste_2021-04-17_17-11-46](http://qiniucloudtest.qqdeveloper.com/mweb/1618650744497-Snipaste_2021-04-17_17-11-46.png)
 ## Laravel框架配置哨兵
 
 Laravel框架自带Redis操作类。我们只需要简单配置即可。找到config/database.php文件。设置如下配置信息即可：
@@ -549,8 +547,3 @@ object(Predis\Response\Status)#237 (1) {
   string(2) "OK"
 }
 ```
-
-
-
-
-

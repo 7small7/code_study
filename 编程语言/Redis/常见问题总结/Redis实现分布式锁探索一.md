@@ -1,5 +1,3 @@
-> 专注于PHP、MySQL、Linux和前端开发，感兴趣的感谢点个关注哟！！！文章整理在[GitHub](https://github.com/bruceqiq/code_study),[Gitee](https://gitee.com/bruce_qiq/code_study)主要包含的技术有PHP、Redis、MySQL、JavaScript、HTML&CSS、Linux、Java、Golang、Linux和工具资源等相关理论知识、面试题和实战内容。
-
 ## 实战说明
 
 最近在一个项目营销活动中，一位同事用到了Redis来实现商品的库存管理。在压测的过程中，发现存在超卖的情况。这里总结一篇如何正确使用Redis来解决秒杀场景下，超卖的情况。
@@ -11,7 +9,7 @@
 ### 第一种场景
 
 该场景是利用Redis来存储商品数量。先获取库存，针对库存判断，如果库存大于0，则减少1，再更新Redis库存数据。大致示意图如下：
-![Snipaste_2021-10-25_21-19-53](https://gitee.com/bruce_qiq/picture/raw/master/2021-10-25/1635168007654-Snipaste_2021-10-25_21-19-53.png)
+![1635168007654-Snipaste_2021-10-25_21-19-53](http://qiniucloudtest.qqdeveloper.com/mweb/1635168007654-Snipaste_2021-10-25_21-19-53.png)
 1. 当第一个请求来之后，去判断Redis的库存数量。接着给商品库存减少一，然后去更新库存数量。
 
 2. 当在第一个请求处理库存逻辑之间，第二个请求来了，同样的逻辑，去读Redis库存，判断库存数量接着执行减少库存操作。此时他们操作的商品其实就是同一个商品。
@@ -46,7 +44,7 @@ public function demo1(ResponseInterface $response)
 ### 第二种场景
 
 使用文件锁，第一请求来了之后，打开文件锁。处理完毕业务之后，释放当前的文件锁，接着处理下一个请求，依次循环。保证当前的所有请求，只有一个请求在处理库存。请求处理完毕之后，则释放锁。
-![Snipaste_2021-10-25_21-28-40](https://gitee.com/bruce_qiq/picture/raw/master/2021-10-25/1635168534444-Snipaste_2021-10-25_21-28-40.png)
+![1635168534444-Snipaste_2021-10-25_21-28-40](http://qiniucloudtest.qqdeveloper.com/mweb/1635168534444-Snipaste_2021-10-25_21-28-40.png)
 1. 使用文件锁，来一个请求给一个文件加锁。此时另外的请求就会被阻塞，直到上一个请求成功释放锁文件，下一个请求才会执行。
 
 2. 所有的请求就犹如一个队列一样，前一个先入队列后一个后入队列，一次按照FIFO的顺序进行。
@@ -94,14 +92,11 @@ public function demo3(ResponseInterface $response)
 1. 如果使用文件锁，开启一个锁和释放一个锁都是比较耗时的。在秒杀的业务场景下，大量请求过来，很容易出现大部分用户一直处于请求等待的过程中。
 
 2. 当开启一个文件锁时，都是针对当前服务器。如果我们的项目属于分布式部署，上述的加锁也只能针对当前的服务器进行加锁，而不是针对的请求进行加锁。如下图：容易时刻存在多个多服务器多个锁。
-![Snipaste_2021-10-25_21-31-57](https://gitee.com/bruce_qiq/picture/raw/master/2021-10-25/1635168727744-Snipaste_2021-10-25_21-31-57.png)
-
-
+![1635168727744-Snipaste_2021-10-25_21-31-57](http://qiniucloudtest.qqdeveloper.com/mweb/1635168727744-Snipaste_2021-10-25_21-31-57.png)
 ## 第三种场景
 
 该方案是通过先Redis存储商品库存，来一个请求就针对上面的库存减少1，Redis如果返回的库存小于0则表示当前的秒杀失败。主要是利用到了Redis的单线程写。保证每次对Redis的写都只有一个线程在执行。
-![Snipaste_2021-10-25_21-36-05](https://gitee.com/bruce_qiq/picture/raw/master/2021-10-25/1635168974964-Snipaste_2021-10-25_21-36-05.png)
-
+![1635168974964-Snipaste_2021-10-25_21-36-05](http://qiniucloudtest.qqdeveloper.com/mweb/1635168974964-Snipaste_2021-10-25_21-36-05.png)
 ```php
 public function demo2(ResponseInterface $response)
 {
