@@ -29,7 +29,7 @@ insert into `user`
 ```php
 select * from `user`;
 ```
-> 这里应该根据实际要查询的字段，指定查询的字段。
+> 这里应该根据实际要查询的字段，指定查询的字段。而不是使用*查询全部字段。
 
 1. 减少大字段的查询。
 
@@ -129,8 +129,27 @@ or查询，即使多列都存在索引，or后续的列的索引也会失效。�
 select * from `user_1` limit 100000, 10;
 ```
 上面的语句，在数据量大情况下，查询也会特别耗时。应该使用下面的方式，该方式在做分页时减少了磁盘查找，先在索引中查询出对应的ID，走了聚集索引。
+第一种方案是用wherein语句。
+```php
+select * from `user_1` where id in (select id form `user_1` limit 100000, 10);
+```
+第二种方案是用join查询。
 ```php
 select a.* from `user_1` as a 
 (select id from `user_1` limit 100000, 10) b
 inner join a.id = b.id;
+```
+> 不过前面也提到in的性能，相对join来说低一些。因此，推荐使用join语句查询。
+
+1. 索引的使用。
+
+这里提到的索引使用，并非我们理解上的使用索引查询。而是强制MySQL在查询查询时使用某个指定索引或者忽略某个索引。
+在实际的查询中，该SQL语句中存在多个索引列，MySQL优化器会自动筛选使用哪一个索引，如果MySQL使用的的索引不是我们想使用的索引，就可以指定MySQL使用什么索引。
+```php
+// 使用索引index_column查询
+select * from tableName use index(index_column) where  ?;
+// 查询时忽略某一列索引
+select * from tableName ignore index(index_column) where  ?;
+// 强制使用索引
+select * from tableName force index(index_column) where  ?;
 ```
