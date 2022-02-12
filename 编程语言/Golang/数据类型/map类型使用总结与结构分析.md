@@ -26,7 +26,9 @@ slice := []int{1, 2, 3, 4}
 ## 案例
 
 假设我们现在有这样的一个需求，要用golang中的一种数据类型来存储多个用户的数据，这些数据分别用户的ID，name，age，sex...等等字段。我们改用什么数据类型呢？
+
 1. 在PHP中我们可以直接下面的方式定义，操作也是非常简单。
+
 ```php
 $userInfo = [
   ['id' => 1, 'name' => '张三', 'age' => 12, 'sex' => '男'],  
@@ -35,13 +37,16 @@ $userInfo = [
   ['id' => 4, 'name' => '王麻子', 'age' => 56, 'sex' => '男']
 ];
 ```
+
 2. 那如何在golang中实现呢，假设我们用数组和切片实现一下试试。
+
 ```golang
 // 1. 用数组实现
 $user1 := [4]string{"1", "张三", "12", "男"}
 $user2 := [4]string{"2", "赵六", "12", "男"}
 $user3 := [4]string{"3", "李四", "12", "女"}
 $user4 := [4]string{"4", "王麻子", "12", "男"}
+
 // 2. 用户切片实现
 $user1 := []string{"1", "张三", "12", "男"}
 $user2 := []string{"2", "赵六", "12", "男"}
@@ -56,7 +61,7 @@ b. 重复代码。一个用户一个变量，如果存在千万个用户，我�
 
 c. 繁琐。相比PHP的实现，是不是非常繁琐。PHP中直接定义一个变量，通过多维数组的方式，就可以定义key和值。清晰并且简单。这也是为什么大家都说PHP中的数组非常强大和好用了。
 
-3. 通过切片和数组实现的方式，我们知道了弊端。那有不有一种数据类型能够像PHP这样简单就能实现呢？这样的场景就可以用map实现PHP这样的定义结构。接下来，我们就具体总结一下map相关的操作。
+d. 通过切片和数组实现的方式，我们知道了弊端。那有不有一种数据类型能够像PHP这样简单就能实现呢？这样的场景就可以用map实现PHP这样的定义结构。接下来，我们就具体总结一下map相关的操作。
 
 ## map
 
@@ -81,6 +86,7 @@ map1 = make(map[int]string[, n])
 map1 := make(map[int]string[, n])
 ```
 > 上面的n都是map的容量，也就是说map可以存储元素的数量。可以省略，map会动态扩容。
+
 示例小案例，我们用map存储一个用户的信息。用户信息包含ID，name，age字段。
 ```golang
 userInfo := make(map[string]string)
@@ -98,6 +104,7 @@ map[id:1 name:张三 age:12]
 
 这里的操作，我们接着上面的小案例来使用。
 1. 访问和复制。我们直接使用下标就可以了。
+
 ```golang
 // 赋值
 mapName[key] = "值"
@@ -107,13 +114,17 @@ userInfo["name"] = "王五"
 mapName[key]
 name := userInfo["name"]
 ```
+
 2. 删除元素。删除操作，需要使用到delete()，给该函数传递要删除的key。
+
 ```golang
 delete(mapName, key)
 
 delete(userInfo, "name")
 ```
+
 3. 判断某一个值key是否存在。上面我们访问map中的key，直接使用下标就可以了。如果 map 中不存在 key1，val1 就是一个值类型的空值。会导致我们没法区分到底是 key不存在还是它对应的value就是空值。
+
 ```golang
 value, boolean := mapName[key]
 // 如果boolean是一个true则说明，对应的key存在，如果是false，则说明该key不存在。
@@ -123,7 +134,9 @@ if value, ok := userInfo["address"]; !ok {
 }
 因为address这个key不存在，因此会输出“address key not found!”。
 ```
+
 4. 循环。循环map，我们一般是用到 `for range`来实现。
+
 ```golang
 // 语法
 for value, key := range mapName {
@@ -138,6 +151,7 @@ for value, key := range userInfo {
 张三 => name
 12 => age
 ```
+
 ### 总结
 
 其实对map基本的操作就是这么简单。对它的理解也是这么简单。在日常开发中，我们也经常使用该类型。
@@ -148,6 +162,7 @@ for value, key := range userInfo {
 2. map的一级key是int，表示当前的用户序号(从0，1，2，3...依次递增)。key对应的值，才是某一个用户的具体信息，我们同样的定义map类型来存储，key和value都是字符串，结构就像map声明中的小案例一样。
 
 3. 因为我们不知道用户的具体个数，我们将一级的key定义为切片。因为切片的长度是不固定的。
+
 ```golang
 userInfo := make([]map[string]string, 3)
 
