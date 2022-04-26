@@ -3,7 +3,7 @@
 ### 仓库说明
 
 本仓库为个人编程学习总结，涵盖了服务端、客户端等编程语言技术知识。是对编程工作中的技术学习、经验总结等。<font color='red'>转载请标明出处</font>，只可以在本仓库进行查看。部分文章会涉及到一些资源分享，<font color='red'>可以关注个人公众号“卡二条的技术圈”进行获取</font>。可以通过下面扫码方法进行获取。
-
+![扫码_搜索联合传播样式-标准色版 (1)](https://gitee.com/bruce_qiq/picture/raw/master/2021-4-17/1618652349624-%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E6%A0%87%E5%87%86%E8%89%B2%E7%89%88%20(1).png)
 ### 仓库内容
 
 仓库主要包含的技术有PHP、Redis、MySQL、JavaScript、HTML&CSS、Linux、Java、Golang、Linux和工具资源等相关理论知识、面试题和实战内容。
@@ -15,11 +15,6 @@
 [Github访问地址](https://github.com/bruceqiq/code_study)
 
 [Gitee访问地址](https://gitee.com/bruce_qiq/code_study)
-
-### 公众号
-
-![扫码_搜索联合传播样式-标准色版 (1)](https://gitee.com/bruce_qiq/picture/raw/master/2021-4-17/1618652349624-%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E6%A0%87%E5%87%86%E8%89%B2%E7%89%88%20(1).png)
-
 
 ### 博客平台
 
