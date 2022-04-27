@@ -1,6 +1,6 @@
 > 专注于PHP、MySQL、Linux和前端开发，感兴趣的感谢点个关注哟！！！文章整理在[GitHub](https://github.com/bruceqiq/code_study),[Gitee](https://gitee.com/bruce_qiq/code_study)主要包含的技术有PHP、Redis、MySQL、JavaScript、HTML&CSS、Linux、Java、Golang、Linux和工具资源等相关理论知识、面试题和实战内容。
 
-![Snipaste_20220428_033838.png](0)
+![Snipaste_20220428_033838.png](0)![Snipaste_20220428_033838.png](1)
 ![Snipaste_20220428_034432.png](0)
 ### 仓库说明
 
