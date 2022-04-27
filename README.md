@@ -1,5 +1,6 @@
 > 专注于PHP、MySQL、Linux和前端开发，感兴趣的感谢点个关注哟！！！文章整理在[GitHub](https://github.com/bruceqiq/code_study),[Gitee](https://gitee.com/bruce_qiq/code_study)主要包含的技术有PHP、Redis、MySQL、JavaScript、HTML&CSS、Linux、Java、Golang、Linux和工具资源等相关理论知识、面试题和实战内容。
 
+![Snipaste_20220428_033838.png](0)
 ### 仓库说明
 
 本仓库为个人编程学习总结，涵盖了服务端、客户端等编程语言技术知识。是对编程工作中的技术学习、经验总结等。<font color='red'>转载请标明出处</font>，只可以在本仓库进行查看。部分文章会涉及到一些资源分享，<font color='red'>可以关注个人公众号“卡二条的技术圈”进行获取</font>。可以通过下面扫码方法进行获取。
