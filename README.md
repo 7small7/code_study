@@ -15,7 +15,7 @@
 [Github访问地址](https://github.com/bruceqiq/code_study) , [Gitee访问地址](https://gitee.com/bruce_qiq/code_study)
 ### 相关地址
 
-![](https://s3.bmp.ovh/imgs/2022/05/04/6f8bab34b97fa47e.jpeg)
+![](media/16516735482317.jpg)
 
 1. 公众号：日常分享一些技术、工具和资源相关的东西。
 2. 答题小程序：汇总了程序员常见的面试高频问题。
@@ -33,14 +33,11 @@
 [MySQL思维导图](https://www.processon.com/view/link/627264397d9c0807283c0bec)
 
 #### MySQL
-![MySQL](https://gitee.com/bruce_qiq/picture/raw/master/2021-8-15/1629035885274-MySQL.png)
-
+![MySQL](media/16516735482335.png)
 #### PHP
-![PHP](https://gitee.com/bruce_qiq/picture/raw/master/2021-8-15/1629035894952-PHP.png)
-
+![PHP](media/16516735482354.png)
 #### Redis
-![Redis](https://gitee.com/bruce_qiq/picture/raw/master/2021-8-15/1629035875200-Redis.png)
-
+![Redis](media/16516735482382.png)
 #### Docker
-![docker](https://gitee.com/bruce_qiq/picture/raw/master/2021-8-15/1629035904998-docker.png)
+![docker](media/16516735482409.png)
 
