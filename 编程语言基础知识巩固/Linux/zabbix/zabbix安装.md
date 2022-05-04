@@ -17,7 +17,7 @@ lnmp属于PHP集成环境按照包，通过该包可以一键PHP相关的服务�
 ### 安装zabbix服务端
 
 我这里将服务端和客户端都安装在一台机器上，在安装zabbix服务端时，自动将客户端安装完成。打开zabbix的官网，[下载源码](https://www.zabbix.com/cn/download_sources)。
-![Snipaste_2021-10-06_15-57-41](https://gitee.com/bruce_qiq/picture/raw/master/2021-10-6/1633507094200-Snipaste_2021-10-06_15-57-41.png)
+![Snipaste_2021-10-06_15-57-41](media/16516747752656.png)
 ```shell
 # 将源码包下载到/home/wwwroot/目录下面
 [root@centos wwwroot]# wget https://cdn.zabbix.com/zabbix/sources/stable/5.4/zabbix-5.4.5.tar.gz 
