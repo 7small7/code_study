@@ -30,6 +30,8 @@
 
 下面是编程学习中的一些技术思维导图，由于仓库存在大小限制，如果需要源文件的可以添加公众号，联系我获取源件。
 
+[MySQL思维导图](https://www.processon.com/view/link/627264397d9c0807283c0bec)
+
 #### MySQL
 ![MySQL](https://gitee.com/bruce_qiq/picture/raw/master/2021-8-15/1629035885274-MySQL.png)
 
